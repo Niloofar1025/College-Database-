@@ -1,0 +1,71 @@
+DROP DATABASE IF EXISTS task_1;
+CREATE DATABASE task_1;
+USE task_1;
+
+CREATE TABLE Department (
+Dcode CHAR(255) NOT NULL,
+Dname VARCHAR(255) NOT NULL,
+Dmg_ssn INT NOT NULL,
+PRIMARY KEY(Dcode)
+);
+
+CREATE TABLE EMPLOYEE (
+Ssn INT NOT NULL AUTO_INCREMENT,
+Ename VARCHAR(50) NOT NULL,
+Bdate date NOT NULL,
+Address VARCHAR (50) NOT NULL,
+Dcode CHAR (50) NOT NULL,
+Driver_license VARCHAR(50) NOT NULL,
+PRIMARY KEY (Ssn),
+FOREIGN KEY (Dcode) REFERENCES Department (Dcode)
+);
+
+CREATE TABLE Project (
+Pnumber INT(7) NOT NULL AUTO_INCREMENT,
+Pname VARCHAR(50) NOT NULL,
+Plocation ENUM('QLD', 'VIC', 'NSW', 'SA') NOT NULL,
+PRIMARY KEY(Pnumber)
+);
+
+CREATE TABLE CAR (
+Registration_number VARCHAR(10) NOT NULL,
+model VARCHAR(50) NOT NULL,
+maker varchar(50) NOT NULL default "Toyota",
+year year NOT NULL,
+PRIMARY KEY (Registration_Number)
+);
+
+CREATE TABLE Employee_Car (
+Ssn INT(7) NOT NULL AUTO_INCREMENT,
+Car varchar(50) NOT NULL,
+PRIMARY KEY(SSN,CAR),
+FOREIGN KEY (SSN) REFERENCES EMPLOYEE (SSN),
+FOREIGN KEY (CAR) REFERENCES CAR (Registration_Number) 
+);
+
+CREATE TABLE Employee_Project(
+Ssn INT(7) NOT NULL,
+Pnumber INT(7) NOT NULL ,
+Hours INT NOT NULL,
+CONSTRAINT CHK_Employee_Project CHECK (Hours>=0 AND Hours<=100),
+PRIMARY KEY (SSN,PNUMBER),
+FOREIGN KEY (SSN) REFERENCES Employee(SSN), 
+FOREIGN KEY (PNUMBER) REFERENCES Project(PNUMBER) 
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
